@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-In</title>
+    <link rel="stylesheet" href="style.css">
+    <!--<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>-->
+</head>
+<body>
+    <div class="hero">
+        <div class="form-b">
+            <div class="button-b"> 
+                <div id="btn"></div>
+            <button type="button" class="toggle-btn" onclick="login()">Login</button>
+            <button type="button" class="toggle-btn" onclick="acc()">Create Account</button>
+            </div>
+            <div class="social-icons">
+                <img src="icons8-facebook-48.png">
+                <img src="icons8-instagram-48.png">
+                <img src="icons8-twitter-48.png">
+            </div>
+            <form id="login"class="input-group">
+                <input type="text" class="input-field" placeholder="Username" required>
+                <input type="text" class="input-field" placeholder="Password" required>
+                <input type="checkbox" class="check-box"><span>Remember Me</span>
+                <button type="submit" class="submit-btn">Log In</button>
+            </form>
+            <form id="acc" class="input-group">
+                <input type="text" class="input-field" placeholder="Username" required>
+                <input type="email" class="input-field" placeholder="Email" required>
+                <input type="text" class="input-field" placeholder="Password" required> 
+                <input type="checkbox" class="check-box"><span>I agree to the terms & conditions</span>
+                <button type="submit" class="submit-btn">Create Account</button>
+                
+                <div><hr>
+                    <p class="or">OR</p>
+                    <div class="fb-login">
+                      
+                    <button type="button" class="submit-btn" onclick="checkLoginState()">Continue with facebook</button> 
+                    </div>
+            </form>
+         
+        </div>
+         
+    </div>
+    <script>
+        window.fbAsyncInit = function() {
+   FB.init({
+     appId      : '1686632715108628',
+     xfbml      : true,
+     version    : 'v16.0'
+   });
+   FB.AppEvents.logPageView();
+ };
+
+ (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+   </script>
+
+    <script>
+        function checkLoginState(){
+            FB.getLoginStatus(function(response){
+                statusChangeCallback(response);
+            });
+        }
+        function statusChangeCallback(response){
+            if(response.status==='connected'){
+             //user is logged in and authorized your website
+             //retrieve user information and log them in
+            }
+            else if(response.status==='not_authorized'){
+                //user is logged in to facebook but has not authorized your website
+                //prompt user to authorize your website
+                FB.login(function(response){
+                    statusChangeCallback(response);
+                },{scope:'public_profile,email'});
+            }
+        }
+    </script>
+    
+    <script>
+        var x= document.getElementById("login");
+        var y= document.getElementById("acc");
+        var z= document.getElementById("btn");
+        function acc(){
+            x.style.left="-400px";
+            y.style.left="50px"
+            z.style.left="110px"
+
+        }
+        function login(){
+            x.style.left="50px";
+            y.style.left="550px"
+            z.style.left="0px"
+
+        }
+    </script>
+    
+</body>
+</html>
